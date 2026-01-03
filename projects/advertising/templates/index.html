@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advertising Analysis - Flask App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            max-width: 900px;
+            width: 100%;
+            padding: 40px;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        
+        .workflow {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .step {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            font-weight: bold;
+        }
+        
+        .step:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .step.active {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        
+        .content {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            min-height: 300px;
+        }
+        
+        .loading {
+            text-align: center;
+            color: #666;
+            padding: 40px;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-box {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 12px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+        
+        .stat-value {
+            color: #333;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+        }
+        
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        tr:hover {
+            background: #f5f5f5;
+        }
+        
+        .image-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .input-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: bold;
+        }
+        
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+        
+        button:hover {
+            transform: scale(1.05);
+        }
+        
+        .error {
+            background: #fee;
+            color: #c33;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        
+        .success {
+            background: #efe;
+            color: #3c3;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 Advertising Analysis Dashboard</h1>
+        <p class="subtitle">Linear Regression Model for Sales Prediction</p>
+        
+        <div class="workflow">
+            <div class="step" onclick="runStep('analyze')">1. Analyze</div>
+            <div class="step" onclick="runStep('clean')">2. Clean</div>
+            <div class="step" onclick="runStep('visualize')">3. Visualize</div>
+            <div class="step" onclick="runStep('train')">4. Train</div>
+            <div class="step" onclick="runStep('test')">5. Test</div>
+            <div class="step" onclick="runStep('predict')">6. Predict</div>
+        </div>
+        
+        <div class="content" id="content">
+            <p style="text-align: center; color: #666;">Click on a step above to begin analysis</p>
+        </div>
+    </div>
+    
+    <script>
+        function runStep(step) {
+            const content = document.getElementById('content');
+            content.innerHTML = '<div class="loading"><div class="spinner"></div>Loading...</div>';
+            
+            let endpoint = '';
+            switch(step) {
+                case 'analyze':
+                    endpoint = '/api/analyze';
+                    break;
+                case 'clean':
+                    endpoint = '/api/clean';
+                    break;
+                case 'visualize':
+                    endpoint = '/api/visualize';
+                    break;
+                case 'train':
+                    endpoint = '/api/train';
+                    break;
+                case 'test':
+                    endpoint = '/api/test';
+                    break;
+                case 'predict':
+                    showPredictionForm();
+                    return;
+            }
+            
+            fetch(endpoint)
+                .then(response => response.json())
+                .then(data => displayResult(step, data))
+                .catch(error => {
+                    content.innerHTML = `<div class="error">Error: ${error.message}</div>`;
+                });
+        }
+        
+        function displayResult(step, data) {
+            const content = document.getElementById('content');
+            let html = '';
+            
+            switch(step) {
+                case 'analyze':
+                    html = `
+                        <h2>Step 1: ANALYZE - Dataset Exploration</h2>
+                        <div class="stats">
+                            <div class="stat-box">
+                                <div class="stat-label">Total Rows</div>
+                                <div class="stat-value">${data.rows}</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-label">Total Columns</div>
+                                <div class="stat-value">${data.columns}</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-label">Missing Values</div>
+                                <div class="stat-value">${data.missing_values}</div>
+                            </div>
+                        </div>
+                        <h3>Column Information</h3>
+                        <table>
+                            <tr>
+                                <th>Column</th>
+                                <th>Data Type</th>
+                                <th>Non-Null Count</th>
+                                <th>Null Count</th>
+                            </tr>
+                            ${data.column_info.map(col => `
+                                <tr>
+                                    <td>${col.name}</td>
+                                    <td>${col.dtype}</td>
+                                    <td>${col.non_null}</td>
+                                    <td>${col.null_count}</td>
+                                </tr>
+                            `).join('')}
+                        </table>
+                    `;
+                    break;
+                    
+                case 'clean':
+                    html = `
+                        <h2>Step 2: CLEAN - Data Preprocessing</h2>
+                        <div class="stats">
+                            <div class="stat-box">
+                                <div class="stat-label">Original Rows</div>
+                                <div class="stat-value">${data.original_rows}</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-label">Rows After Cleaning</div>
+                                <div class="stat-value">${data.rows_after_cleaning}</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-label">Rows Removed</div>
+                                <div class="stat-value">${data.rows_removed}</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-label">Duplicates Removed</div>
+                                <div class="stat-value">${data.duplicates_removed}</div>
+                            </div>
+                        </div>
+                        <p><strong>Columns:</strong> ${data.column_names.join(', ')}</p>
+                    `;
+                    break;
+                    
+                case 'visualize':
+                    html = `
+                        <h2>Step 3: VISUALIZE - Data Exploration</h2>
+                        <p><strong>Target Column:</strong> ${data.target_column}</p>
+                        <p><strong>Feature Columns:</strong> ${data.feature_columns.join(', ')}</p>
+                        <div class="image-container">
+                            <h3>Distribution & Box Plot</h3>
+                            <img src="data:image/png;base64,${data.visualizations.distribution}" alt="Distribution">
+                        </div>
+                        <div class="image-container">
+                            <h3>Correlation Matrix</h3>
+                            <img src="data:image/png;base64,${data.visualizations.correlation}" alt="Correlation">
+                        </div>
+                        <div class="image-container">
+                            <h3>Feature Distributions</h3>
+                            <img src="data:image/png;base64,${data.visualizations.features}" alt="Features">
+                        </div>
+                        <div class="image-container">
+                            <h3>Feature vs Target Scatter Plots</h3>
+                            <img src="data:image/png;base64,${data.visualizations.scatter}" alt="Scatter">
+                        </div>
+                    `;
+                    break;
+                    
+                case 'train':
+                    html = `
+                        <h2>Step 4: TRAIN - Model Development</h2>
+                        <div class="stats">
+                            <div class="stat-box">
+                                <div class="stat-label">Total Samples</div>
+                                <div class="stat-value">${data.total_samples}</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-label">Training Samples</div>
+                                <div class="stat-value">${data.training_samples} (${data.training_percentage}%)</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-label">Testing Samples</div>
+                                <div class="stat-value">${data.testing_samples} (${data.testing_percentage}%)</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-label">Number of Features</div>
+                                <div class="stat-value">${data.num_features}</div>
+                            </div>
+                        </div>
+                        <h3>Model Coefficients</h3>
+                        <table>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Coefficient</th>
+                            </tr>
+                            ${Object.entries(data.model_coefficients).map(([feature, coef]) => `
+                                <tr>
+                                    <td>${feature}</td>
+                                    <td>${coef.toFixed(4)}</td>
+                                </tr>
+                            `).join('')}
+                        </table>
+                        <p style="margin-top: 15px;"><strong>Intercept:</strong> ${data.model_intercept.toFixed(4)}</p>
+                    `;
+                    break;
+                    
+                case 'test':
+                    html = `
+                        <h2>Step 5: TEST - Model Evaluation</h2>
+                        <h3>Training Metrics</h3>
+                        <div class="stats">
+                            <div class="stat-box">
+                                <div class="stat-label">MSE</div>
+                                <div class="stat-value">${data.training.mse}</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-label">RMSE</div>
+                                <div class="stat-value">${data.training.rmse}</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-label">MAE</div>
+                                <div class="stat-value">${data.training.mae}</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-label">R² Score</div>
+                                <div class="stat-value">${data.training.r2_percentage}%</div>
+                            </div>
+                        </div>
+                        <h3>Testing Metrics</h3>
+                        <div class="stats">
+                            <div class="stat-box">
+                                <div class="stat-label">MSE</div>
+                                <div class="stat-value">${data.testing.mse}</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-label">RMSE</div>
+                                <div class="stat-value">${data.testing.rmse}</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-label">MAE</div>
+                                <div class="stat-value">${data.testing.mae}</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-label">R² Score</div>
+                                <div class="stat-value">${data.testing.r2_percentage}%</div>
+                            </div>
+                        </div>
+                        <div class="image-container">
+                            <h3>Actual vs Predicted</h3>
+                            <img src="data:image/png;base64,${data.visualizations.actual_vs_predicted}" alt="Actual vs Predicted">
+                        </div>
+                        <div class="image-container">
+                            <h3>Residual Analysis</h3>
+                            <img src="data:image/png;base64,${data.visualizations.residuals}" alt="Residuals">
+                        </div>
+                    `;
+                    break;
+            }
+            
+            content.innerHTML = html;
+        }
+        
+        function showPredictionForm() {
+            const content = document.getElementById('content');
+            content.innerHTML = `
+                <h2>Step 6: DEPLOY - Make Predictions</h2>
+                <p>Enter advertising spend values to predict sales:</p>
+                <div id="predictionForm"></div>
+            `;
+            
+            // Fetch feature columns from training step
+            fetch('/api/train')
+                .then(response => response.json())
+                .then(data => {
+                    let form = '<div style="display: grid; gap: 15px;">';
+                    data.feature_names.forEach(feature => {
+                        form += `
+                            <div class="input-group">
+                                <label for="${feature}">${feature}</label>
+                                <input type="number" id="${feature}" placeholder="Enter ${feature}" step="0.1">
+                            </div>
+                        `;
+                    });
+                    form += '<button onclick="makePrediction()">🔮 Predict Sales</button>';
+                    form += '</div>';
+                    document.getElementById('predictionForm').innerHTML = form;
+                });
+        }
+        
+        function makePrediction() {
+            // Get feature names from form
+            const inputs = document.querySelectorAll('input[type="number"]');
+            const data = {};
+            inputs.forEach(input => {
+                data[input.id] = parseFloat(input.value) || 0;
+            });
+            
+            fetch('/api/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                const html = `
+                    <div class="success">
+                        <h3>Prediction Result</h3>
+                        <p><strong>Predicted Sales:</strong> $${result.prediction}</p>
+                        <h4>Input Values:</h4>
+                        <table>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Value</th>
+                            </tr>
+                            ${Object.entries(result.input_values).map(([feature, value]) => `
+                                <tr>
+                                    <td>${feature}</td>
+                                    <td>${value}</td>
+                                </tr>
+                            `).join('')}
+                        </table>
+                    </div>
+                `;
+                document.getElementById('content').innerHTML += html;
+            })
+            .catch(error => {
+                alert('Error: ' + error.message);
+            });
+        }
+    </script>
+</body>
+</html>
