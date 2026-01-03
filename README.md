@@ -1,2 +1,0 @@
-# bits_techgyan_hackathon
-bits_techgyan_hackathon
