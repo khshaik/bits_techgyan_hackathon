@@ -134,18 +134,30 @@ R² Score:                       0.871586 (87.16%)
 
 ## 🏗️ Project Architecture
 
-### File Structure
+### 📁 Project Structure
 
 ```
 advertising/
-├── README.md                                    # This file
-├── SETUP.md                                     # Setup instructions
-├── newspaper_advertising_flask_analysis.py     # Main Flask app
-├── BITS_AIML_AdvertisingAnalysis_Jan3rd2026.ipynb  # Jupyter notebook
-├── BITS_AIML_AdvertisingAnalysis_Jan3rd2026.py    # Python script
-├── requirements_flask.txt                      # Dependencies
-└── templates/
-    └── index.html                              # Web interface
+│
+├── algorithm/
+│   └── ALGORITHM_LINEAR_REGRESSION.md
+│
+├── code/
+│   ├── newspaper_advertising_flask_analysis.ipynb
+│   └── newspaper_advertising_flask_analysis.py
+│
+├── notes/
+│   └── ADVERTISING_FLASK_DEPLOYMENT.md
+│
+├── output/
+│   └── flask_analysis.pdf
+│
+├── templates/
+│   └── index.html
+│
+├── README.md
+├── requirements_flask.txt
+└── SETUP.md
 ```
 
 ### Technology Stack
@@ -376,6 +388,19 @@ def make_prediction(input_values, model, scaler, feature_cols):
     prediction = model.predict(input_scaled)[0]
     return round(prediction, 2)
 ```
+
+---
+
+## 📖 Algorithm Deep Dive
+
+For a comprehensive understanding of Linear Regression, including:
+- Mathematical formulas and derivations
+- Why Linear Regression was chosen for this dataset
+- Step-by-step algorithm working process
+- Learning perspective and assumptions
+- Performance analysis and interpretation
+
+**See**: `ALGORITHM_LINEAR_REGRESSION.md`
 
 ---
 

@@ -193,11 +193,21 @@ Interpretation:
 
 ```
 titanic/
-├── README.md                                    # This file
-├── SETUP.md                                     # Setup instructions
-├── BITS_AIML_Titanic_Jan3rd2026.ipynb          # Jupyter notebook
-├── BITS_AIML_Titanic_Jan3rd2026.py             # Python script
-└── requirements.txt                             # Dependencies
+│
+├── algorithm/
+│   └── ALGORITHM_DECISION_TREE.md
+│
+├── code/
+│   ├── titanic_data_analysis.ipynb
+│   └── titanic_data_analysis.py
+│
+├── notes/
+│   └── TITANIC_JUPYTER_DEPLOYMENT.md
+│
+├── setup/
+│   └── SETUP.md
+│
+└── README.md
 ```
 
 ### Technology Stack
@@ -418,6 +428,20 @@ recall = recall_score(y_test, y_pred)
 f1 = f1_score(y_test, y_pred)
 cm = confusion_matrix(y_test, y_pred)
 ```
+
+---
+
+## 📖 Algorithm Deep Dive
+
+For a comprehensive understanding of Decision Tree Classifier, including:
+- Mathematical formulas (entropy, information gain, Gini impurity)
+- Why Decision Tree was chosen for Titanic survival prediction
+- Step-by-step algorithm working process
+- Learning perspective and assumptions
+- Feature importance analysis
+- Historical insights and decision rules
+
+**See**: `ALGORITHM_DECISION_TREE.md`
 
 ---
 

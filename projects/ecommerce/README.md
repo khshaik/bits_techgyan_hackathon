@@ -129,6 +129,7 @@ R² Score:                       X.XXXXXX (XX.XX%)
 ecommerce/
 ├── README.md                                    # This file
 ├── SETUP.md                                     # Setup instructions
+├── ALGORITHM_LINEAR_REGRESSION_ECOMMERCE.md    # Algorithm explanation & theory
 ├── ecommerce_customer_streamlit_analysis.py    # Main Streamlit app
 ├── BITS_AIML_Ecommerce_Analysis.ipynb          # Jupyter notebook
 ├── requirements_streamlit.txt                  # Dependencies
@@ -376,6 +377,20 @@ prediction = make_prediction(input_data, model, scaler, feature_cols)
 # Display result
 st.metric("Predicted Annual Spending", f"${prediction:,.2f}")
 ```
+
+---
+
+## 📖 Algorithm Deep Dive
+
+For a comprehensive understanding of Linear Regression in customer analytics, including:
+- Mathematical formulas and derivations
+- Why Linear Regression was chosen for customer spending prediction
+- Step-by-step algorithm working process
+- Learning perspective and assumptions
+- Customer feature analysis and interpretation
+- Business implications and decision-making
+
+**See**: `ALGORITHM_LINEAR_REGRESSION_ECOMMERCE.md`
 
 ---
 

@@ -14,40 +14,77 @@ The BITS Hackathon project is a comprehensive machine learning suite containing 
 ---
 
 ## 📁 Project Structure
-
 ```
-BITS_Hackathon/
-├── README.md                          # This file - Project overview
-├── SETUP.md                           # General setup instructions
-├── ARCHITECTURE.md                    # System architecture and design
+BITS_TECHGYAN_HACKATHON/
 │
-├── advertising/                       # Advertising Spend Analysis
-│   ├── README.md                      # Project-specific documentation
-│   ├── SETUP.md                       # Setup instructions
-│   ├── newspaper_advertising_flask_analysis.py
-│   ├── BITS_AIML_AdvertisingAnalysis_Jan3rd2026.ipynb
-│   ├── BITS_AIML_AdvertisingAnalysis_Jan3rd2026.py
-│   ├── requirements_flask.txt
-│   └── templates/
-│       └── index.html
+├── README.md                          # Overall project overview
+├── SETUP.md                           # Common setup instructions
 │
-├── ecommerce/                         # E-commerce Customer Analysis
-│   ├── README.md                      # Project-specific documentation
-│   ├── SETUP.md                       # Setup instructions
-│   ├── ecommerce_customer_streamlit_analysis.py
-│   ├── BITS_AIML_Ecommerce_Analysis.ipynb
-│   ├── requirements_streamlit.txt
-│   └── data/
-│       └── (sample data files)
+├── advertising/                       # Advertising Spend Analysis (Flask)
+│   │
+│   ├── README.md                      # Advertising project overview
+│   ├── SETUP.md                       # Advertising-specific setup
+│   │
+│   ├── algorithm/
+│   │   └── ALGORITHM_LINEAR_REGRESSION.md
+│   │
+│   ├── code/
+│   │   ├── newspaper_advertising_flask_analysis.ipynb
+│   │   └── newspaper_advertising_flask_analysis.py
+│   │
+│   ├── notes/
+│   │   └── ADVERTISING_FLASK_DEPLOYMENT.md
+│   │
+│   ├── output/
+│   │   └── flask_analysis.pdf
+│   │
+│   ├── templates/
+│   │   └── index.html
+│   │
+│   └── requirements_flask.txt
 │
-└── titanic/                           # Titanic Survival Prediction
-    ├── README.md                      # Project-specific documentation
-    ├── SETUP.md                       # Setup instructions
-    ├── BITS_AIML_Titanic_Jan3rd2026.ipynb
-    ├── BITS_AIML_Titanic_Jan3rd2026.py
-    └── requirements.txt
+├── ecommerce/                         # E-commerce Analysis
+│   │
+│   ├── README.md
+│   ├── SETUP.md
+│   │
+│   ├── algorithm/
+│   │   └── ALGORITHM_LINEAR_REGRESSION_ECOMMERCE.md
+│   │
+│   ├── code/
+│   │   ├── ecommerce_customer_analysis.ipynb
+│   │   └── ecommerce_customer_analysis.py
+│   │
+│   ├── notes/
+│   │   └── ARCHITECTURE.md
+│   │
+│   ├── output/
+│   │   └── ecommerce_analysis.pdf
+│   │
+│   └── setup/
+│       └── SETUP.md
+│
+├── titanic/                           # Titanic Survival Prediction
+│   │
+│   ├── README.md
+│   ├── SETUP.md
+│   │
+│   ├── algorithm/
+│   │   └── ALGORITHM_DECISION_TREE.md
+│   │
+│   ├── code/
+│   │   ├── titanic_data_analysis.ipynb
+│   │   └── titanic_data_analysis.py
+│   │
+│   ├── notes/
+│   │   └── TITANIC_JUPYTER_DEPLOYMENT.md
+│   │
+│   └── setup/
+│       └── SETUP.md
+│
+└── notes/
+    └── ARCHITECTURE.md                # Overall system architecture
 ```
-
 ---
 
 ## 🚀 Quick Start
@@ -79,6 +116,12 @@ BITS_Hackathon/
 - **Key Metrics**: MSE, RMSE, MAE, R² Score
 - **Use Case**: Predict sales based on advertising budget allocation
 
+**Documentation**:
+- `README.md` - Project overview and features
+- `SETUP.md` - Installation and setup instructions
+- `ALGORITHM_LINEAR_REGRESSION.md` - Algorithm theory, mathematics, and why it was chosen
+- `ADVERTISING_FLASK_DEPLOYMENT.md` - Deployment guide
+
 **Quick Start**:
 ```bash
 cd advertising
@@ -98,6 +141,11 @@ python newspaper_advertising_flask_analysis.py
 - **Key Metrics**: MSE, RMSE, MAE, R² Score
 - **Use Case**: Predict customer spending based on demographics
 
+**Documentation**:
+- `README.md` - Project overview and features
+- `SETUP.md` - Installation and setup instructions
+- `ALGORITHM_LINEAR_REGRESSION_ECOMMERCE.md` - Algorithm theory, mathematics, and why it was chosen
+
 **Quick Start**:
 ```bash
 cd ecommerce
@@ -116,6 +164,12 @@ streamlit run ecommerce_customer_streamlit_analysis.py
 - **Deployment**: Jupyter Notebook and standalone Python script
 - **Key Metrics**: Accuracy, Precision, Recall, F1-Score, Confusion Matrix
 - **Use Case**: Predict passenger survival based on demographics and ticket information
+
+**Documentation**:
+- `README.md` - Project overview and features
+- `SETUP.md` - Installation and setup instructions
+- `ALGORITHM_DECISION_TREE.md` - Algorithm theory, mathematics, and why it was chosen
+- `TITANIC_JUPYTER_DEPLOYMENT.md` - Deployment guide
 
 **Quick Start**:
 ```bash
