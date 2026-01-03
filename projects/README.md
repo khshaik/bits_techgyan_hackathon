@@ -14,6 +14,7 @@ The BITS Hackathon project is a comprehensive machine learning suite containing 
 ---
 
 ## 📁 Project Structure
+
 ```
 BITS_TECHGYAN_HACKATHON/
 │
@@ -85,6 +86,7 @@ BITS_TECHGYAN_HACKATHON/
 └── notes/
     └── ARCHITECTURE.md                # Overall system architecture
 ```
+
 ---
 
 ## 🚀 Quick Start
