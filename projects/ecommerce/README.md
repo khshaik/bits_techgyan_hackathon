@@ -127,14 +127,30 @@ R² Score:                       X.XXXXXX (XX.XX%)
 
 ```
 ecommerce/
-├── README.md                                    # This file
-├── SETUP.md                                     # Setup instructions
-├── ALGORITHM_LINEAR_REGRESSION_ECOMMERCE.md    # Algorithm explanation & theory
-├── ecommerce_customer_streamlit_analysis.py    # Main Streamlit app
-├── BITS_AIML_Ecommerce_Analysis.ipynb          # Jupyter notebook
-├── requirements_streamlit.txt                  # Dependencies
-└── data/
-    └── (sample data files if applicable)
+│
+├── algorithm/
+│   └── ALGORITHM_LINEAR_REGRESSION_ECOMMERCE.md
+│
+├── code/
+│   ├── ecommerce_customer_analysis.ipynb
+│   └── ecommerce_customer_analysis.py
+│
+├── notes/
+│   └── ARCHITECTURE.md
+│
+├── output/
+│   └── ecommerce_analysis.pdf
+│
+├── setup/
+│   └── SETUP.md
+│
+├── tests/
+│   ├── __init__.py
+│   ├── test_ecommerce_app.py
+│   └── TESTING_SUMMARY.md
+│
+├── README.md
+└── SETUP.md
 ```
 
 ### Technology Stack

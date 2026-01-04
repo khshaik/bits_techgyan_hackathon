@@ -207,6 +207,11 @@ titanic/
 ├── setup/
 │   └── SETUP.md
 │
+├── tests/
+│   ├── __init__.py
+│   ├── test_titanic_app.py
+│   └── TESTING_SUMMARY.md
+│
 └── README.md
 ```
 

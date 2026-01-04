@@ -155,6 +155,11 @@ advertising/
 ├── templates/
 │   └── index.html
 │
+├── tests/
+│   ├── __init__.py
+│   ├── test_advertising_app.py
+│   └── TESTING_SUMMARY.md
+│
 ├── README.md
 ├── requirements_flask.txt
 └── SETUP.md
